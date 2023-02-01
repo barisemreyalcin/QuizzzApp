@@ -27,12 +27,33 @@ const quiz = new Quiz(questions);
 
 document.querySelector(".btn_start").addEventListener("click", function() {
     
-    if(quiz.questions.length != quiz.questionIndex) {
-        document.querySelector(".quiz_box").classList.add("active");
-        console.log(quiz.bringQuestion());
+    document.querySelector(".quiz_box").classList.add("active");
+        displayQuestion(quiz.bringQuestion());
+
+})
+
+document.querySelector(".next_btn").addEventListener("click", function() {
+    if(quiz.questions.length != quiz.questionIndex +1) {
         quiz.questionIndex +=1;
+        displayQuestion(quiz.bringQuestion());
     } else {
         console.log("Questions are over");
     }
+});
 
-})
+function displayQuestion(question) {
+    let dispQuestion = `<span>${question.questionText}</span>`
+    let options = "";
+
+    for (let answer in question.answerChoices) {
+        options +=
+        `
+            <div class="option">
+                <span><b>${answer})</b> ${question.answerChoices[answer]}</span>
+            </div>
+        `
+    }
+
+    document.querySelector(".question_text").innerHTML = dispQuestion;
+    document.querySelector(".option_list").innerHTML = options;
+}
