@@ -3,7 +3,7 @@ const ui = new UI();
 
 ui.btn_start.addEventListener("click", function() {
     
-   ui.quiz_box.classList.add("active");
+    ui.quiz_box.classList.add("active");
     ui.displayQuestion(quiz.bringQuestion());
     ui.displayQuestionNo(quiz.questionIndex + 1, quiz.questions.length);
 
@@ -17,7 +17,20 @@ ui.btn_next.addEventListener("click", function() {
         ui.btn_next.classList.remove("show")
     } else {
         console.log("Questions are over");
+        ui.quiz_box.classList.remove("active");
+        ui.score_box.classList.add("active");
+        ui.displayScore(quiz.questions.length, quiz.correctAnswerNo);
     }
+});
+
+ui.btn_finish.addEventListener("click", function() {
+    window.location.reload();
+});
+ui.btn_restart.addEventListener("click", function() {
+    quiz.questionIndex = 0;
+    quiz.correctAnswerNo = 0;
+    ui.btn_start.click();
+    ui.score_box.classList.remove("active");
 });
 
 function optionSelected(option) {
@@ -25,6 +38,7 @@ function optionSelected(option) {
     let question = quiz.bringQuestion();
 
     if(question.answerCheck(answer)) {
+        quiz.correctAnswerNo += 1;
         option.classList.add("correct");
         option.insertAdjacentHTML("beforeend", ui.correctIcon);
     } else {

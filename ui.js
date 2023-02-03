@@ -1,7 +1,10 @@
 function UI () {
     this.btn_start = document.querySelector(".btn_start"),
     this.btn_next = document.querySelector(".next_btn"),
+    this.btn_restart = document.querySelector(".btn_restart"),
+    this.btn_finish = document.querySelector(".btn_finish"),
     this.quiz_box = document.querySelector(".quiz_box"),
+    this.score_box = document.querySelector(".score_box"),
     this.option_list = document.querySelector(".option_list"),
     this.correctIcon = `<div class="icon"><i class="fas fa-check"></i></div>`,
     this.incorrectIcon = `<div class="icon"><i class="fas fa-times"></i></div>`
@@ -32,4 +35,9 @@ UI.prototype.displayQuestion = function(question) {
 UI.prototype.displayQuestionNo = function(questionOrder, questionTotal) {
     let tag = `<span class="badge bg-warning">${questionOrder} / ${questionTotal}</span>`
     document.querySelector(".quiz_box .question_index").innerHTML = tag;
+}
+
+UI.prototype.displayScore = function(questionTotal, correctAnswerNo) {
+    let tag = `${correctAnswerNo} correct answers out of ${questionTotal} questions`;
+    document.querySelector(".score_box .score_text").innerHTML = tag;
 }
