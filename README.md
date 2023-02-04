@@ -27,3 +27,7 @@ You are able to see the score when the Quizzz ends. Moreover, you can restart or
 - HTML
 - CSS
 - JavaScript
+<hr>
+
+#### Check the Quizzz App:
+[Click here!](https://quizzz-app-webdev.netlify.app/)
