@@ -5,6 +5,7 @@ ui.btn_start.addEventListener("click", function() {
     
     ui.quiz_box.classList.add("active");
     startTimer(15);
+    startTimerLine();
     ui.displayQuestion(quiz.bringQuestion());
     ui.displayQuestionNo(quiz.questionIndex + 1, quiz.questions.length);
 
@@ -14,12 +15,15 @@ ui.btn_next.addEventListener("click", function() {
     if(quiz.questions.length != quiz.questionIndex +1) {
         quiz.questionIndex +=1;
         clearInterval(counter);
+        clearInterval(counterLine);
         startTimer(15);
+        startTimerLine();
         ui.displayQuestion(quiz.bringQuestion());
         ui.displayQuestionNo(quiz.questionIndex + 1, quiz.questions.length);
         ui.btn_next.classList.remove("show")
     } else {
         clearInterval(counter);
+        clearInterval(counterLine);
         ui.quiz_box.classList.remove("active");
         ui.score_box.classList.add("active");
         ui.displayScore(quiz.questions.length, quiz.correctAnswerNo);
@@ -38,6 +42,7 @@ ui.btn_restart.addEventListener("click", function() {
 
 function optionSelected(option) {
     clearInterval(counter);
+    clearInterval(counterLine);
     let answer = option.querySelector("span b").textContent;
     let question = quiz.bringQuestion();
 
@@ -81,5 +86,21 @@ function startTimer(time) {
             }
             ui.btn_next.classList.add("show");
         } 
+    }
+}
+
+let counterLine
+function startTimerLine() {
+    let line_width = 0;
+
+    counterLine = setInterval(timer, 10);
+
+    function timer() {
+        line_width += 0.375;
+        ui.time_line.style.width = line_width + "px";
+        
+        if(line_width > 599) {
+            clearInterval(counterLine);
+        }
     }
 }
